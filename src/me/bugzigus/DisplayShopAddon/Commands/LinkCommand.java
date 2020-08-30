@@ -1,7 +1,10 @@
-package me.bugzigus.DisplayShopAddon;
+package me.bugzigus.DisplayShopAddon.Commands;
 
+import me.bugzigus.DisplayShopAddon.DisplayShopAddon;
+import me.bugzigus.DisplayShopAddon.YmlFIle;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,9 +19,11 @@ import java.util.UUID;
 public class LinkCommand implements CommandExecutor {
 
     //Hashmap for finding
-    HashMap<UUID, Shop> shops = new HashMap<UUID, Shop>();
+    HashMap<UUID, Shop> shopMaps = new HashMap<UUID, Shop>();
 
     Shop selectedShop;
+
+    UUID key;
 
     Block block = null;
     int x, y, z;
@@ -32,14 +37,29 @@ public class LinkCommand implements CommandExecutor {
 
                 Player player = (Player) sender;
 
-                UUID UUID = player.getUniqueId();
-                block = player.getTargetBlock(null, 5);
+                if (YmlFIle.isUUID(strings[0])) {
+                    UUID key = UUID.fromString(strings[0]);
 
-                shops = DisplayShops.getPluginInstance().getManager().getShopMap();
 
-                selectedShop = shops.get(strings[0]);
+                    block = player.getTargetBlock(null, 5);
 
-                Data.getBlock(block, selectedShop, UUID);
+                    shopMaps = DisplayShops.getPluginInstance().getManager().getShopMap();
+
+                    if (shopMaps.containsKey(key)) {
+                        selectedShop = shopMaps.get(key);
+
+                        YmlFIle.fileWrite(player, block, selectedShop);
+                    } else {
+
+                        player.sendMessage(ChatColor.DARK_RED + "That ID is not in the system");
+
+                    }
+
+                } else {
+
+                    player.sendMessage(ChatColor.DARK_RED + "That is not a correct UUID");
+
+                }
 
             }
         } else {

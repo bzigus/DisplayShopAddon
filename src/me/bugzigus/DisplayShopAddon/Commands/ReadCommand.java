@@ -1,5 +1,7 @@
-package me.bugzigus.DisplayShopAddon;
+package me.bugzigus.DisplayShopAddon.Commands;
 
+import me.bugzigus.DisplayShopAddon.Data;
+import me.bugzigus.DisplayShopAddon.YmlFIle;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,15 +23,7 @@ public class ReadCommand implements CommandExecutor {
 
             Player player = (Player) commandSender;
 
-            UUID playerUUID = player.getUniqueId();
-
-            Data data = new Data(Data.loadData("Tutorial.data"));
-
-            hashMap = data.blockSnapShot;
-
-            hashMap.containsKey(strings[0]);
-
-            player.sendMessage(String.valueOf(hashMap.containsKey(strings[0])));
+            YmlFIle.fileRead(player);
 
         }
 
