@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DisplayShopAddon:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DisplayShopAddon_jar</output-path>
+    <root id="archive" name="DisplayShopAddon.jar">
+      <element id="module-output" name="DisplayShopAddon" />
+    </root>
+  </artifact>
+</component>
