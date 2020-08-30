@@ -23,13 +23,14 @@ public class DisplayShopAddon extends JavaPlugin{
     @Override
     public void onEnable() {
 
+        //Config Setup
         FileConfiguration config = this.getConfig();
         this.saveDefaultConfig();
         config.addDefault("youAreAwesome", true);
         config.options().copyDefaults(true);
         saveConfig();
-
-        getServer().getPluginManager().registerEvents(new HopperListener(), this);
+        //Events
+        getServer().getPluginManager().registerEvents(new ChestListener(), this);
 
         //Commands
         this.getCommand("linkshop").setExecutor(new LinkCommand());

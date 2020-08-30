@@ -2,6 +2,7 @@ package me.bugzigus.DisplayShopAddon;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -45,6 +46,7 @@ public class YmlFIle {
         int blockX = block.getX();
         int blockY = block.getY();
         int blockZ = block.getZ();
+        String blockWorld = block.getWorld().getName();
 
         //Shop Location XYZ
         LocationClone shopLocation = (LocationClone) shop.getBaseLocation();
@@ -52,6 +54,7 @@ public class YmlFIle {
         double shopX = shopLocation.getX();
         double shopY = shopLocation.getY();
         double shopZ = shopLocation.getZ();
+        String shopWorld = shopLocation.getWorldName();
 
         File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("DisplayShopAddon").getDataFolder() + File.separator + "PlayerDatabase");
         File f = new File(userdata, File.separator + playerUUID + ".yml");
@@ -75,9 +78,11 @@ public class YmlFIle {
                 playerData.set("Shop.ShopX", shopX);
                 playerData.set("Shop.ShopY", shopY);
                 playerData.set("Shop.ShopZ", shopZ);
+                playerData.set("Shop.ShopWorld", shopWorld);
                 playerData.set("Shop.BlockX", blockX);
                 playerData.set("Shop.BlockY", blockY);
                 playerData.set("Shop.BlockZ", blockZ);
+                playerData.set("Shop.BlockWorld", blockWorld);
 
 
                 player.sendMessage(ChatColor.GREEN + "Successfully linked this chest to " + shop.getShopId());
@@ -102,10 +107,10 @@ public class YmlFIle {
         String playerUUID = player.getUniqueId().toString();
 
         Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("DisplayShopAddon");
-
+        File f = new File(plugin.getDataFolder() + File.separator + "PlayerDatabase" + File.separator + playerUUID + ".yml");
 
         //File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("DisplayShopAddon").getDataFolder() + File.separator + "PlayerDatabase");
-        File f = new File(plugin.getDataFolder() + File.separator + "PlayerDatabase" + File.separator + playerUUID + ".yml");
+
 
 
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
@@ -113,12 +118,12 @@ public class YmlFIle {
         if (f.exists()) {
 
             String shopUUID = playerData.getString("Shop.UUID");
-            Double shopX = playerData.getDouble("Shop.shopX");
-            Double shopY = playerData.getDouble("Shop.shopY");
-            Double shopZ = playerData.getDouble("Shop.shopZ");
-            Double blockX = playerData.getDouble("Shop.blockX");
-            Double blockY = playerData.getDouble("Shop.blockY");
-            Double blockZ = playerData.getDouble("Shop.blockZ");
+            Double shopX = playerData.getDouble("Shop.ShopX");
+            Double shopY = playerData.getDouble("Shop.ShopY");
+            Double shopZ = playerData.getDouble("Shop.ShopZ");
+            Double blockX = playerData.getDouble("Shop.BlockX");
+            Double blockY = playerData.getDouble("Shop.BlockY");
+            Double blockZ = playerData.getDouble("Shop.BlockZ");
 
             player.sendMessage(ChatColor.GREEN + "Success!");
             player.sendMessage("Shop UUID: " + shopUUID);
@@ -132,8 +137,9 @@ public class YmlFIle {
         }
 
 
-//        String shopUUID = plugin.getConfig().getConfigurationSection(f.getPath()).get("Shop.UUID").toString();
-//
+
     }
+
+
 
 }

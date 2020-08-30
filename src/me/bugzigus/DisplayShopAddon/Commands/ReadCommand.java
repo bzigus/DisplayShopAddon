@@ -1,6 +1,5 @@
 package me.bugzigus.DisplayShopAddon.Commands;
 
-import me.bugzigus.DisplayShopAddon.Data;
 import me.bugzigus.DisplayShopAddon.YmlFIle;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
