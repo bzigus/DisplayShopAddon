@@ -6,7 +6,6 @@ import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
@@ -80,7 +79,6 @@ public class ChestListener implements Listener {
                         Bukkit.getScheduler().runTaskLater(plugin, () -> {
 
                             chestInventory.remove(chestItem);
-
 
 
                         }, 1L);

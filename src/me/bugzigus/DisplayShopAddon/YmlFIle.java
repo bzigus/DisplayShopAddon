@@ -2,7 +2,6 @@ package me.bugzigus.DisplayShopAddon;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -38,7 +37,7 @@ public class YmlFIle {
         f.delete();
     }
 
-    public static boolean fileWrite(Player player, Block block, Shop shop) {
+    public static boolean fileWrite(Player player, Block block, Shop shop, int number) {
 
         String playerUUID = player.getUniqueId().toString();
         String playerName = player.getName();
@@ -49,7 +48,7 @@ public class YmlFIle {
         String blockWorld = block.getWorld().getName();
 
         //Shop Location XYZ
-        LocationClone shopLocation = (LocationClone) shop.getBaseLocation();
+        LocationClone shopLocation = shop.getBaseLocation();
         String shopUUID = shop.getShopId().toString();
         double shopX = shopLocation.getX();
         double shopY = shopLocation.getY();
@@ -60,7 +59,7 @@ public class YmlFIle {
         File f = new File(userdata, File.separator + playerUUID + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
 
-        if (!f.exists()){
+        if (!f.exists()) {
 
             try {
 
@@ -102,7 +101,7 @@ public class YmlFIle {
         return true;
     }
 
-    public static void fileRead(Player player)  {
+    public static void fileRead(Player player) {
 
         String playerUUID = player.getUniqueId().toString();
 
@@ -110,7 +109,6 @@ public class YmlFIle {
         File f = new File(plugin.getDataFolder() + File.separator + "PlayerDatabase" + File.separator + playerUUID + ".yml");
 
         //File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("DisplayShopAddon").getDataFolder() + File.separator + "PlayerDatabase");
-
 
 
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
@@ -137,9 +135,20 @@ public class YmlFIle {
         }
 
 
-
     }
 
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
 
 
 }

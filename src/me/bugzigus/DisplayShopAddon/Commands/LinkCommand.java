@@ -1,10 +1,7 @@
 package me.bugzigus.DisplayShopAddon.Commands;
 
-import me.bugzigus.DisplayShopAddon.DisplayShopAddon;
 import me.bugzigus.DisplayShopAddon.YmlFIle;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,42 +28,54 @@ public class LinkCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
-        if (!(strings.length == 0)) {
+        if (strings.length == 2) {
 
             if (sender instanceof Player) {
 
                 Player player = (Player) sender;
 
-                if (YmlFIle.isUUID(strings[0])) {
-                    UUID key = UUID.fromString(strings[0]);
+                if (YmlFIle.isUUID(strings[1])) {
+                    UUID key = UUID.fromString(strings[1]);
+
+                    if (YmlFIle.isNumeric(strings[0])) {
+
+                        int number = Integer.parseInt(strings[0]);
 
 
-                    block = player.getTargetBlock(null, 5);
+                        block = player.getTargetBlock(null, 5);
 
-                    shopMaps = DisplayShops.getPluginInstance().getManager().getShopMap();
+                        shopMaps = DisplayShops.getPluginInstance().getManager().getShopMap();
 
-                    if (shopMaps.containsKey(key)) {
-                        selectedShop = shopMaps.get(key);
+                        if (shopMaps.containsKey(key)) {
+                            selectedShop = shopMaps.get(key);
 
-                        YmlFIle.fileWrite(player, block, selectedShop);
+                            YmlFIle.fileWrite(player, block, selectedShop, number);
+                        } else {
+
+                            player.sendMessage(ChatColor.DARK_RED + "That ID is not in the system");
+
+                        }
+
                     } else {
 
-                        player.sendMessage(ChatColor.DARK_RED + "That ID is not in the system");
+                        player.sendMessage(ChatColor.DARK_RED + "Are you sure you add a number");
+                        sender.sendMessage(ChatColor.DARK_RED + "Command Usage: /linkshop (1-5) (ShopID)");
 
                     }
 
                 } else {
 
                     player.sendMessage(ChatColor.DARK_RED + "That is not a correct UUID");
-
                 }
 
             }
         } else {
 
             sender.sendMessage(ChatColor.DARK_RED + "You did not add a shop ID to link too. Do /displayshops copy");
+            sender.sendMessage(ChatColor.DARK_RED + "Command Usage: /linkshop (1-5) (ShopID)");
 
         }
         return true;
     }
 }
+

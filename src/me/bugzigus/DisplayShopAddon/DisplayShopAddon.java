@@ -1,20 +1,16 @@
 package me.bugzigus.DisplayShopAddon;
+
 import me.bugzigus.DisplayShopAddon.Commands.LinkCommand;
 import me.bugzigus.DisplayShopAddon.Commands.ReadCommand;
 import me.bugzigus.DisplayShopAddon.Commands.RemoveCommand;
-import me.vagdedes.mysql.database.MySQL;
-import me.vagdedes.mysql.database.SQL;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import xzot1k.plugins.ds.DisplayShops;
 
 import java.io.File;
-import java.io.IOException;
 
 //TODO Make Hoppers Work with Display Shop
 
-public class DisplayShopAddon extends JavaPlugin{
+public class DisplayShopAddon extends JavaPlugin {
 
     public FileConfiguration myFileConfig = null;
     public File locations;
@@ -42,7 +38,6 @@ public class DisplayShopAddon extends JavaPlugin{
     @Override
     public void onDisable() {
     }
-
 
 
 }
