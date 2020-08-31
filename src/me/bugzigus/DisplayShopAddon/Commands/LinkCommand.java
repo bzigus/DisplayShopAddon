@@ -2,6 +2,7 @@ package me.bugzigus.DisplayShopAddon.Commands;
 
 import me.bugzigus.DisplayShopAddon.YmlFIle;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,15 +29,19 @@ public class LinkCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
+        //Correct Length
         if (strings.length == 2) {
 
+            //Make sure the sender is a player
             if (sender instanceof Player) {
 
                 Player player = (Player) sender;
 
+                //Check if the UUID given really is a UUID
                 if (YmlFIle.isUUID(strings[1])) {
                     UUID key = UUID.fromString(strings[1]);
 
+                    //Check if number really is a number
                     if (YmlFIle.isNumeric(strings[0])) {
 
                         int number = Integer.parseInt(strings[0]);
@@ -44,15 +49,30 @@ public class LinkCommand implements CommandExecutor {
 
                         block = player.getTargetBlock(null, 5);
 
-                        shopMaps = DisplayShops.getPluginInstance().getManager().getShopMap();
+                        Material material = Material.CHEST;
 
-                        if (shopMaps.containsKey(key)) {
-                            selectedShop = shopMaps.get(key);
+                        //Make sure the block player is looking at is a chest
+                        if (block.getType() == material) {
 
-                            YmlFIle.fileWrite(player, block, selectedShop, number);
+                            shopMaps = DisplayShops.getPluginInstance().getManager().getShopMap();
+
+                            //Get the shop for ID of the shop
+                            if (shopMaps.containsKey(key)) {
+                                selectedShop = shopMaps.get(key);
+
+                                //Write it to the .yml file
+                                YmlFIle.fileWrite(player, block, selectedShop, number);
+
+                                //All of messages you could receive
+
+                            } else {
+
+                                player.sendMessage(ChatColor.DARK_RED + "That ID is not in the system");
+
+                            }
                         } else {
 
-                            player.sendMessage(ChatColor.DARK_RED + "That ID is not in the system");
+                            player.sendMessage(ChatColor.DARK_RED + "The block you are looking at is not a chest!");
 
                         }
 
