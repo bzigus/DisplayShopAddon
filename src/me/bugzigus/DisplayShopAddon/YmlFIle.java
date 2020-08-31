@@ -12,6 +12,8 @@ import xzot1k.plugins.ds.api.objects.Shop;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class YmlFIle {
@@ -27,6 +29,14 @@ public class YmlFIle {
 
     }
 
+    public static List<Integer> getNumbersInRange(int start, int end) {
+        List<Integer> result = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            result.add(i);
+        }
+        return result;
+    }
+
     public static void fileClear(Player player, int number) {
 
         String playerUUID = player.getUniqueId().toString();
@@ -37,6 +47,7 @@ public class YmlFIle {
 
         player.sendMessage("Shop"+ number + ".UUID");
 
+        playerData.set("Shop"+ number + ".Enabled", null);
         playerData.set("Shop"+ number + ".UUID", null);
         playerData.set("Shop"+ number + ".ShopX", null);
         playerData.set("Shop"+ number + ".ShopY", null);
@@ -91,6 +102,7 @@ public class YmlFIle {
 
                 //Linked Sections
                 playerData.createSection("Shop1");
+                playerData.set("Shop"+ number + ".Enabled", true);
                 playerData.set("Shop"+ number + ".UUID", shopUUID);
                 playerData.set("Shop"+ number + ".ShopX", shopX);
                 playerData.set("Shop"+ number + ".ShopY", shopY);
@@ -124,6 +136,7 @@ public class YmlFIle {
                         player.sendMessage("Successfully set shop link " + number);
 
                     }
+                    playerData.set("Shop1.Enabled", true);
                     playerData.set("Shop1.UUID", shopUUID);
                     playerData.set("Shop1.ShopX", shopX);
                     playerData.set("Shop1.ShopY", shopY);
@@ -146,6 +159,8 @@ public class YmlFIle {
                         player.sendMessage("Successfully set shop link " + number);
 
                     }
+                    playerData.set("Shop2.Enabled", true);
+
                     playerData.set("Shop2.UUID", shopUUID);
                     playerData.set("Shop2.ShopX", shopX);
                     playerData.set("Shop2.ShopY", shopY);
@@ -168,6 +183,8 @@ public class YmlFIle {
                         player.sendMessage("Successfully set shop link " + number);
 
                     }
+                    playerData.set("Shop3.Enabled", true);
+
                     playerData.set("Shop3.UUID", shopUUID);
                     playerData.set("Shop3.ShopX", shopX);
                     playerData.set("Shop3.ShopY", shopY);
@@ -190,6 +207,8 @@ public class YmlFIle {
                         player.sendMessage("Successfully set shop link " + number);
 
                     }
+                    playerData.set("Shop4.Enabled", true);
+
                     playerData.set("Shop4.UUID", shopUUID);
                     playerData.set("Shop4.ShopX", shopX);
                     playerData.set("Shop4.ShopY", shopY);
@@ -212,6 +231,8 @@ public class YmlFIle {
                         player.sendMessage("Successfully set shop link " + number);
 
                     }
+                    playerData.set("Shop5.Enabled", true);
+
                     playerData.set("Shop5.UUID", shopUUID);
                     playerData.set("Shop5.ShopX", shopX);
                     playerData.set("Shop5.ShopY", shopY);
