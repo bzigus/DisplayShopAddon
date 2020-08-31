@@ -1,10 +1,8 @@
 package me.bugzigus.DisplayShopAddon.Commands;
 
-import me.bugzigus.DisplayShopAddon.DisplayShopAddon;
 import me.bugzigus.DisplayShopAddon.YmlFIle;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,42 +29,73 @@ public class LinkCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
-        if (!(strings.length == 0)) {
+        //Correct Length
+        if (strings.length == 2) {
 
+            //Make sure the sender is a player
             if (sender instanceof Player) {
 
                 Player player = (Player) sender;
 
-                if (YmlFIle.isUUID(strings[0])) {
-                    UUID key = UUID.fromString(strings[0]);
+                //Check if the UUID given really is a UUID
+                if (YmlFIle.isUUID(strings[1])) {
+                    UUID key = UUID.fromString(strings[1]);
+
+                    //Check if number really is a number
+                    if (YmlFIle.isNumeric(strings[0])) {
+
+                        int number = Integer.parseInt(strings[0]);
 
 
-                    block = player.getTargetBlock(null, 5);
+                        block = player.getTargetBlock(null, 5);
 
-                    shopMaps = DisplayShops.getPluginInstance().getManager().getShopMap();
+                        Material material = Material.CHEST;
 
-                    if (shopMaps.containsKey(key)) {
-                        selectedShop = shopMaps.get(key);
+                        //Make sure the block player is looking at is a chest
+                        if (block.getType() == material) {
 
-                        YmlFIle.fileWrite(player, block, selectedShop);
+                            shopMaps = DisplayShops.getPluginInstance().getManager().getShopMap();
+
+                            //Get the shop for ID of the shop
+                            if (shopMaps.containsKey(key)) {
+                                selectedShop = shopMaps.get(key);
+
+                                //Write it to the .yml file
+                                YmlFIle.fileWrite(player, block, selectedShop, number);
+
+                                //All of messages you could receive
+
+                            } else {
+
+                                player.sendMessage(ChatColor.DARK_RED + "That ID is not in the system");
+
+                            }
+                        } else {
+
+                            player.sendMessage(ChatColor.DARK_RED + "The block you are looking at is not a chest!");
+
+                        }
+
                     } else {
 
-                        player.sendMessage(ChatColor.DARK_RED + "That ID is not in the system");
+                        player.sendMessage(ChatColor.DARK_RED + "Are you sure you add a number");
+                        sender.sendMessage(ChatColor.DARK_RED + "Command Usage: /linkshop (1-5) (ShopID)");
 
                     }
 
                 } else {
 
                     player.sendMessage(ChatColor.DARK_RED + "That is not a correct UUID");
-
                 }
 
             }
         } else {
 
             sender.sendMessage(ChatColor.DARK_RED + "You did not add a shop ID to link too. Do /displayshops copy");
+            sender.sendMessage(ChatColor.DARK_RED + "Command Usage: /linkshop (1-5) (ShopID)");
 
         }
         return true;
     }
 }
+

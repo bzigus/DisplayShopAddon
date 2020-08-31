@@ -13,7 +13,7 @@ import java.util.UUID;
 public class ReadCommand implements CommandExecutor {
 
 
-    HashMap<UUID, Location> hashMap = new HashMap<UUID,Location>();
+    HashMap<UUID, Location> hashMap = new HashMap<UUID, Location>();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {

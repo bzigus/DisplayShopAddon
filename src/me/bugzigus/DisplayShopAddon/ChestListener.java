@@ -6,7 +6,6 @@ import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
@@ -18,6 +17,7 @@ import xzot1k.plugins.ds.DisplayShops;
 import xzot1k.plugins.ds.api.objects.Shop;
 
 import java.io.File;
+import java.util.List;
 
 public class ChestListener implements Listener {
 
@@ -28,72 +28,62 @@ public class ChestListener implements Listener {
         File directory = new File(plugin.getDataFolder() + File.separator + "PlayerDatabase");
         File[] files = directory.listFiles();
 
+        List<Integer> numbers = YmlFIle.getNumbersInRange(1, 5);
+
         for (File f : files) {
             FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
 
-            //Getting locations from storage
-            Double shopX = playerData.getDouble("Shop.ShopX");
-            Double shopY = playerData.getDouble("Shop.ShopY");
-            Double shopZ = playerData.getDouble("Shop.ShopZ");
-            String shopWorld = playerData.getString("Shop.ShopWorld");
-            Double blockX = playerData.getDouble("Shop.BlockX");
-            Double blockY = playerData.getDouble("Shop.BlockY");
-            Double blockZ = playerData.getDouble("Shop.BlockZ");
-            String blockWorld = playerData.getString("Shop.BlockWorld");
+            for (int number : numbers) {
 
-            //Getting world info
-            World sWorld = Bukkit.getWorld(shopWorld);
-            World bWorld = Bukkit.getWorld(blockWorld);
+                if (playerData.getBoolean("Shop" + number + ".Enabled") == true) {
+                    //Getting locations from storage
+                    Double shopX = playerData.getDouble("Shop" + number + ".ShopX");
+                    Double shopY = playerData.getDouble("Shop" + number + ".ShopY");
+                    Double shopZ = playerData.getDouble("Shop" + number + ".ShopZ");
+                    String shopWorld = playerData.getString("Shop" + number + ".ShopWorld");
+                    Double blockX = playerData.getDouble("Shop" + number + ".BlockX");
+                    Double blockY = playerData.getDouble("Shop" + number + ".BlockY");
+                    Double blockZ = playerData.getDouble("Shop" + number + ".BlockZ");
+                    String blockWorld = playerData.getString("Shop" + number + ".BlockWorld");
 
-            //Get a Location from World & XYZ
-            Location shopLocation = new Location(sWorld, shopX, shopY, shopZ);
-            Location blockLocation = new Location(bWorld, blockX, blockY, blockZ);
+                    //Getting world info
+                    World sWorld = Bukkit.getWorld(shopWorld);
+                    World bWorld = Bukkit.getWorld(blockWorld);
 
-            Shop shop = DisplayShops.getPluginInstance().getManager().getShop(shopLocation);
+                    //Get a Location from World & XYZ
+                    Location shopLocation = new Location(sWorld, shopX, shopY, shopZ);
+                    Location blockLocation = new Location(bWorld, blockX, blockY, blockZ);
 
-            //thing to make it work
-            InventoryHolder eventHolder = event.getDestination().getHolder();
+                    Shop shop = DisplayShops.getPluginInstance().getManager().getShop(shopLocation);
 
-            if (eventHolder instanceof BlockState) {
+                    //thing to make it work
+                    InventoryHolder eventHolder = event.getDestination().getHolder();
 
-                // Is it the right chest?
-                Location eventLocation = ((BlockState) eventHolder).getLocation();
+                    if (eventHolder instanceof BlockState) {
 
-                if (eventLocation.distance(blockLocation) == 0) {
+                        // Is it the right chest?
+                        Location eventLocation = ((BlockState) eventHolder).getLocation();
 
-                    // Get items to compare
-                    ItemStack inventoryItem = event.getItem();
-                    ItemStack shopItem = shop.getShopItem();
+                        if (eventLocation.distance(blockLocation) == 0) {
 
-                    // Compare the items added
-                    if (inventoryItem.isSimilar(shopItem)) {
+                            // Get items to compare
+                            ItemStack inventoryItem = event.getItem();
+                            ItemStack shopItem = shop.getShopItem();
 
-                        //Get inventory to remove item
-                        ItemStack chestItem = event.getItem();
-                        Inventory chestInventory = event.getDestination();
+                            // Compare the items added
+                            if (inventoryItem.isSimilar(shopItem)) {
 
-                        // Add Stock to shop
-                        int previousStock = shop.getStock();
-                        int stock = previousStock + event.getItem().getAmount();
-                        shop.setStock(stock);
+                                // Add Stock to shop
+                                int previousStock = shop.getStock();
+                                int stock = previousStock + event.getItem().getAmount();
+                                shop.setStock(stock);
+                                event.getItem().setAmount(0);
 
-                        Bukkit.getScheduler().runTaskLater(plugin, () -> {
-
-                            chestInventory.remove(chestItem);
-
-
-
-                        }, 1L);
-
+                            }
+                        }
                     }
-
                 }
-
             }
-
         }
-
     }
-
-
 }

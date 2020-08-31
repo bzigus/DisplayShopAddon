@@ -1,6 +1,7 @@
 package me.bugzigus.DisplayShopAddon.Commands;
 
 import me.bugzigus.DisplayShopAddon.YmlFIle;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,8 +15,29 @@ public class RemoveCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        YmlFIle.fileClear(player);
+        if (strings.length == 1) {
 
+            if (YmlFIle.isNumeric(strings[0])) {
+
+                int number = Integer.parseInt(strings[0]);
+
+                YmlFIle.fileClear(player, number);
+
+
+            }
+
+            else {
+
+                player.sendMessage(ChatColor.DARK_RED + "That isn't a number!");
+
+
+            }
+
+        } else {
+
+            player.sendMessage(ChatColor.DARK_RED + "Make sure you add the shop number!");
+
+        }
         return true;
     }
 }
