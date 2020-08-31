@@ -1,5 +1,5 @@
 name: DisplayShopAddon
-version: 0.2
+version: 1.0.0
 author: bugzigus
 main: me.bugzigus.DisplayShopAddon.DisplayShopAddon
 commands:
