@@ -1,6 +1,7 @@
 name: DisplayShopAddon
 version: 1.0.0
 author: bugzigus
+depend: [DisplayShops]
 main: me.bugzigus.DisplayShopAddon.DisplayShopAddon
 commands:
   linkshop:

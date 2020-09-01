@@ -1,6 +1,6 @@
 package me.bugzigus.DisplayShopAddon.Commands;
 
-import me.bugzigus.DisplayShopAddon.YmlFIle;
+import me.bugzigus.DisplayShopAddon.ReadLocations;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,13 +16,18 @@ public class ReadCommand implements CommandExecutor {
     HashMap<UUID, Location> hashMap = new HashMap<UUID, Location>();
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
-        if (commandSender instanceof Player) {
+        if (sender instanceof Player) {
 
-            Player player = (Player) commandSender;
+            ReadLocations rl = new ReadLocations();
 
-            YmlFIle.fileRead(player);
+            Player player = (Player) sender;
+
+            player.sendMessage(rl.getStorage().keySet().toString());
+            player.sendMessage(String.valueOf(rl.getStorage().get(player.getTargetBlock(null, 5).getLocation())));
+            player.sendMessage(player.getTargetBlock(null, 5).getLocation().toString());
+
 
         }
 

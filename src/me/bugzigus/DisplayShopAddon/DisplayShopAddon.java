@@ -17,11 +17,15 @@ public class DisplayShopAddon extends JavaPlugin {
 
 
     @Override
-    public void onEnable() {
+    public final void onEnable() {
 
+        ReadLocations rl = new ReadLocations();
+
+        rl.readFiles();
         //Config Setup
         FileConfiguration config = this.getConfig();
         this.saveDefaultConfig();
+
         config.addDefault("youAreAwesome", true);
         config.options().copyDefaults(true);
         saveConfig();
