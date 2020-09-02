@@ -37,6 +37,10 @@ public class DisplayShopAddon extends JavaPlugin {
         config.addDefault("youAreAwesome", true);
         config.options().copyDefaults(true);
         saveConfig();
+
+        readLocations = new ReadLocations();
+
+        readLocations.readFiles();
         //Events
         getServer().getPluginManager().registerEvents(new ChestListener(this), this);
 
@@ -44,8 +48,6 @@ public class DisplayShopAddon extends JavaPlugin {
         this.getCommand("linkshop").setExecutor(new LinkCommand());
         this.getCommand("unlinkshop").setExecutor(new RemoveCommand());
         this.getCommand("readconfig").setExecutor(new ReadCommand(this));
-
-        readLocations = new ReadLocations();
 
     }
 

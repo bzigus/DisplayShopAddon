@@ -1,15 +1,41 @@
 name: DisplayShopAddon
 version: 1.1.1
+description: Addon to the DisplayShop Plugin
 author: bugzigus
 depend: [DisplayShops]
 main: me.bugzigus.DisplayShopAddon.DisplayShopAddon
 commands:
   linkshop:
     description: Used to link a chest to a chest shop
-    usage: linkshop
+    usage: /linkshop (1-5) (Shop-ID)
+    permission: displayshopaddon.link
+    permission-message: You do not have permission for that!
+
   readconfig:
-    description: Used to link a chest to a chest shop
+    description: Used to read config - Dev command
     usage: linkshop
+    permission: displayshopaddon.read
+    permission-message: You do not have permission for that!
+
   unlinkshop:
     description: Used to unlink chest
-    usage: unlinkshop
+    usage: unlinkshop (1-5)
+    permission: displayshopaddon.unlink
+    permission-message: You do not have permission for that!
+
+permissions:
+  displayshopaddon.*:
+      description: Gives access to all Addon permissions
+      children:
+          displayshopaddon.link: true
+          displayshopaddon.read: true
+          displayshopaddon.unlink: true
+  displayshopaddon.link:
+    description: Allows you to link shops
+    default: true
+  displayshopaddon.unlink:
+    description: Allows you to unlink a shop
+    default: true
+  displayshopaddon.read:
+    description: Dev Command no need to use
+    default: op

@@ -26,8 +26,6 @@ public class ReadCommand implements CommandExecutor {
 
         if (sender instanceof Player) {
 
-
-
             Player player = (Player) sender;
 
             player.sendMessage(plugin.getReadLocation().getStorage().keySet().toString());
