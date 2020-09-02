@@ -4,6 +4,8 @@ import me.bugzigus.DisplayShopAddon.Commands.LinkCommand;
 import me.bugzigus.DisplayShopAddon.Commands.ReadCommand;
 import me.bugzigus.DisplayShopAddon.Commands.RemoveCommand;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.craftbukkit.Main;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -15,23 +17,36 @@ public class DisplayShopAddon extends JavaPlugin {
     public FileConfiguration myFileConfig = null;
     public File locations;
 
+    private ReadLocations readLocations;
+
+    private static DisplayShopAddon pluginInstance;
+
+    public static Plugin pluginInstance() {
+        return pluginInstance;
+    }
 
     @Override
-    public void onEnable() {
+    public final void onEnable() {
 
+        readLocations = new ReadLocations();
+
+        DisplayShopAddon.pluginInstance = this;
+
+        readLocations.readFiles();
         //Config Setup
         FileConfiguration config = this.getConfig();
         this.saveDefaultConfig();
+
         config.addDefault("youAreAwesome", true);
         config.options().copyDefaults(true);
         saveConfig();
         //Events
-        getServer().getPluginManager().registerEvents(new ChestListener(), this);
+        getServer().getPluginManager().registerEvents(new ChestListener(this), this);
 
         //Commands
         this.getCommand("linkshop").setExecutor(new LinkCommand());
         this.getCommand("unlinkshop").setExecutor(new RemoveCommand());
-        this.getCommand("readconfig").setExecutor(new ReadCommand());
+        this.getCommand("readconfig").setExecutor(new ReadCommand(this));
 
     }
 
@@ -39,5 +54,9 @@ public class DisplayShopAddon extends JavaPlugin {
     public void onDisable() {
     }
 
+
+    public ReadLocations getReadLocation() {
+        return readLocations;
+    }
 
 }

@@ -2,6 +2,7 @@ package me.bugzigus.DisplayShopAddon;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -71,10 +72,11 @@ public class YmlFIle {
         String playerUUID = player.getUniqueId().toString();
         String playerName = player.getName();
         //Block Location XYZ
-        int blockX = block.getX();
-        int blockY = block.getY();
-        int blockZ = block.getZ();
-        String blockWorld = block.getWorld().getName();
+        Location blockLocation = block.getLocation();
+        int blockX = blockLocation.getBlockX();
+        int blockY = blockLocation.getBlockY();
+        int blockZ = blockLocation.getBlockZ();
+        String blockWorld = blockLocation.getWorld().getName();
 
         //Shop Location XYZ
         LocationClone shopLocation = shop.getBaseLocation();
