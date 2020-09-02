@@ -90,6 +90,10 @@ public class YmlFIle {
         File f = new File(userdata, File.separator + playerUUID + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
 
+        if (!userdata.exists()) {
+            userdata.mkdirs();
+        }
+
         if (!f.exists()) {
 
             try {

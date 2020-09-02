@@ -28,11 +28,8 @@ public class DisplayShopAddon extends JavaPlugin {
     @Override
     public final void onEnable() {
 
-        readLocations = new ReadLocations();
-
         DisplayShopAddon.pluginInstance = this;
 
-        readLocations.readFiles();
         //Config Setup
         FileConfiguration config = this.getConfig();
         this.saveDefaultConfig();
@@ -47,6 +44,8 @@ public class DisplayShopAddon extends JavaPlugin {
         this.getCommand("linkshop").setExecutor(new LinkCommand());
         this.getCommand("unlinkshop").setExecutor(new RemoveCommand());
         this.getCommand("readconfig").setExecutor(new ReadCommand(this));
+
+        readLocations = new ReadLocations();
 
     }
 
