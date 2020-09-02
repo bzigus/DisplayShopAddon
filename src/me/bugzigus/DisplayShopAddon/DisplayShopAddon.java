@@ -38,6 +38,10 @@ public class DisplayShopAddon extends JavaPlugin {
         config.options().copyDefaults(true);
         saveConfig();
 
+        ReadLang rl = new ReadLang();
+
+        rl.saveDefault();
+
         readLocations = new ReadLocations();
 
         readLocations.readFiles();

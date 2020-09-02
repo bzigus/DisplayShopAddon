@@ -1,5 +1,5 @@
 name: DisplayShopAddon
-version: 1.2.0
+version: 1.3.0
 description: Addon to the DisplayShop Plugin
 author: bugzigus
 depend: [DisplayShops]

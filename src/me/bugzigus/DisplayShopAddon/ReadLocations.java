@@ -20,11 +20,9 @@ import java.util.logging.Level;
 public class ReadLocations {
 
     private Map<Location, Shop> storage = new HashMap<Location, Shop>();
-    Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("DisplayShopAddon");
+    Plugin plugin = DisplayShopAddon.pluginInstance();
     File directory = new File(plugin.getDataFolder() + File.separator + "PlayerDatabase");
     private final File[] files = directory.listFiles();
-
-
 
     public void readFiles() {
 

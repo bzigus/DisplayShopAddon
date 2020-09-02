@@ -1,5 +1,6 @@
 package me.bugzigus.DisplayShopAddon.Commands;
 
+import me.bugzigus.DisplayShopAddon.ReadLang;
 import me.bugzigus.DisplayShopAddon.YmlFIle;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -9,6 +10,8 @@ import org.bukkit.entity.Player;
 
 public class RemoveCommand implements CommandExecutor {
 
+
+    ReadLang rl = new ReadLang();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
@@ -23,19 +26,19 @@ public class RemoveCommand implements CommandExecutor {
 
                 YmlFIle.fileClear(player, number);
 
+                player.sendMessage(rl.readFiles("UnlinkShop.success"));
 
             }
 
             else {
 
-                player.sendMessage(ChatColor.DARK_RED + "That isn't a number!");
-
+                player.sendMessage(rl.readFiles("UnlinkShop.incorrectUsage"));
 
             }
 
         } else {
 
-            player.sendMessage(ChatColor.DARK_RED + "Make sure you add the shop number!");
+            player.sendMessage(rl.readFiles("UnlinkShop.incorrectUsage"));
 
         }
         return true;

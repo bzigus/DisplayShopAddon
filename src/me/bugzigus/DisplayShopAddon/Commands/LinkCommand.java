@@ -1,5 +1,6 @@
 package me.bugzigus.DisplayShopAddon.Commands;
 
+import me.bugzigus.DisplayShopAddon.ReadLang;
 import me.bugzigus.DisplayShopAddon.YmlFIle;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -22,6 +23,8 @@ public class LinkCommand implements CommandExecutor {
     Shop selectedShop;
 
     UUID key;
+
+    ReadLang rl = new ReadLang();
 
     Block block = null;
     int x, y, z;
@@ -63,36 +66,36 @@ public class LinkCommand implements CommandExecutor {
                                 //Write it to the .yml file
                                 YmlFIle.fileWrite(player, block, selectedShop, number);
 
+                                player.sendMessage(rl.readFiles("LinkShop.success"));
+
                                 //All of messages you could receive
 
                             } else {
 
-                                player.sendMessage(ChatColor.DARK_RED + "That ID is not in the system");
+                                player.sendMessage(rl.readFiles("LinkShop.incorrectID"));
 
                             }
                         } else {
 
-                            player.sendMessage(ChatColor.DARK_RED + "The block you are looking at is not a chest!");
+                            player.sendMessage(rl.readFiles("LinkShop.notChest"));
 
                         }
 
                     } else {
 
-                        player.sendMessage(ChatColor.DARK_RED + "Are you sure you add a number");
-                        sender.sendMessage(ChatColor.DARK_RED + "Command Usage: /linkshop (1-5) (ShopID)");
+                        player.sendMessage(rl.readFiles("LinkShop.incorrectUsage"));
 
                     }
 
                 } else {
 
-                    player.sendMessage(ChatColor.DARK_RED + "That is not a correct UUID");
+                    player.sendMessage(rl.readFiles("LinkShop.incorrectUsage"));
                 }
 
             }
         } else {
 
-            sender.sendMessage(ChatColor.DARK_RED + "You did not add a shop ID to link too. Do /displayshops copy");
-            sender.sendMessage(ChatColor.DARK_RED + "Command Usage: /linkshop (1-5) (ShopID)");
+            sender.sendMessage(rl.readFiles("LinkShop.incorrectUsage"));
 
         }
         return true;

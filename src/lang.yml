@@ -1,0 +1,8 @@
+LinkShop:
+  incorrectID: "&4That is not a proper ID"
+  notChest: "&4The block you are looking at is not a chest"
+  incorrectUsage: "&4Incorrect Usage: /linkshop (1-5) (ShopID)"
+  success: "&aSuccessfully linked"
+UnlinkShop:
+  incorrectUsage: "&4Incorrect Usage: /linkshop (1-5) (ShopID)"
+  success: "&aSuccessfully unlinked"

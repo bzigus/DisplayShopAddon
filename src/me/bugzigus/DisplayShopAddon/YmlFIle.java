@@ -61,7 +61,6 @@ public class YmlFIle {
 
         try {
             playerData.save(f);
-            player.sendMessage("Successfully unlinked: " + playerData.getString("Shop" + number + ".UUID"));
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -120,7 +119,6 @@ public class YmlFIle {
                 playerData.set("Shop"+ number + ".BlockWorld", blockWorld);
 
 
-                player.sendMessage(ChatColor.GREEN + "Successfully linked this chest to " + shop.getShopId());
                 playerData.save(f);
 
             } catch (IOException exception) {
@@ -139,8 +137,6 @@ public class YmlFIle {
                         playerData.createSection("Shop1");
                     } else {
 
-                        player.sendMessage("Successfully set shop link " + number);
-
                     }
                     playerData.set("Shop1.Enabled", true);
                     playerData.set("Shop1.UUID", shopUUID);
@@ -154,16 +150,12 @@ public class YmlFIle {
                     playerData.set("Shop1.BlockWorld", blockWorld);
 
                     playerData.save(f);
-                    player.sendMessage(ChatColor.GREEN + "Successfully linked this chest to " + shop.getShopId());
 
                 } else if (number == 2) {
 
                     if (!playerData.isConfigurationSection("Shop2")) {
                         playerData.createSection("Shop2");
                     } else {
-
-                        player.sendMessage("Successfully set shop link " + number);
-
                     }
                     playerData.set("Shop2.Enabled", true);
 
@@ -178,16 +170,11 @@ public class YmlFIle {
                     playerData.set("Shop2.BlockWorld", blockWorld);
                     playerData.save(f);
 
-                    player.sendMessage(ChatColor.GREEN + "Successfully linked this chest to " + shop.getShopId());
 
                 } else if (number == 3) {
 
                     if (!playerData.isConfigurationSection("Shop3")) {
                         playerData.createSection("Shop3");
-                    } else {
-
-                        player.sendMessage("Successfully set shop link " + number);
-
                     }
                     playerData.set("Shop3.Enabled", true);
 
@@ -202,15 +189,11 @@ public class YmlFIle {
                     playerData.set("Shop3.BlockWorld", blockWorld);
                     playerData.save(f);
 
-                    player.sendMessage(ChatColor.GREEN + "Successfully linked this chest to " + shop.getShopId());
-
                 } else if (number == 4) {
 
                     if (!playerData.isConfigurationSection("Shop4")) {
                         playerData.createSection("Shop4");
                     } else {
-
-                        player.sendMessage("Successfully set shop link " + number);
 
                     }
                     playerData.set("Shop4.Enabled", true);
@@ -226,15 +209,11 @@ public class YmlFIle {
                     playerData.set("Shop4.BlockWorld", blockWorld);
                     playerData.save(f);
 
-                    player.sendMessage(ChatColor.GREEN + "Successfully linked this chest to " + shop.getShopId());
-
                 } else if (number == 5) {
 
                     if (!playerData.isConfigurationSection("Shop5")) {
                         playerData.createSection("Shop5");
                     } else {
-
-                        player.sendMessage("Successfully set shop link " + number);
 
                     }
                     playerData.set("Shop5.Enabled", true);
@@ -250,8 +229,6 @@ public class YmlFIle {
                     playerData.set("Shop5.BlockWorld", blockWorld);
                     playerData.save(f);
 
-                    player.sendMessage(ChatColor.GREEN + "Successfully linked this chest to " + shop.getShopId());
-
                 }
             }
             catch (IOException e){
@@ -264,43 +241,6 @@ public class YmlFIle {
 
         return true;
     }
-
-    public static void fileRead(Player player) {
-
-        String playerUUID = player.getUniqueId().toString();
-
-        Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("DisplayShopAddon");
-        File f = new File(plugin.getDataFolder() + File.separator + "PlayerDatabase" + File.separator + playerUUID + ".yml");
-
-        //File userdata = new File(Bukkit.getServer().getPluginManager().getPlugin("DisplayShopAddon").getDataFolder() + File.separator + "PlayerDatabase");
-
-
-        FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
-
-        if (f.exists()) {
-
-            String shopUUID = playerData.getString("Shop.UUID");
-            Double shopX = playerData.getDouble("Shop.ShopX");
-            Double shopY = playerData.getDouble("Shop.ShopY");
-            Double shopZ = playerData.getDouble("Shop.ShopZ");
-            Double blockX = playerData.getDouble("Shop.BlockX");
-            Double blockY = playerData.getDouble("Shop.BlockY");
-            Double blockZ = playerData.getDouble("Shop.BlockZ");
-
-            player.sendMessage(ChatColor.GREEN + "Success!");
-            player.sendMessage("Shop UUID: " + shopUUID);
-            player.sendMessage("Shop XYZ: " + shopX + ", " + shopY + ", " + shopZ);
-            player.sendMessage("Block XYZ: " + blockX + ", " + blockY + ", " + blockZ);
-
-        } else {
-
-            player.sendMessage("No info Found :( (Does the file Exist?)" + f.exists());
-
-        }
-
-
-    }
-
 
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
