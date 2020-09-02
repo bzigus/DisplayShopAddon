@@ -57,15 +57,11 @@ public class ReadLocations {
                     Shop shop = DisplayShops.getPluginInstance().getManager().getShop(shopLocation);
 
                     getStorage().put(blockLocation, shop);
-
-                    Bukkit.getLogger().log(Level.INFO, storage.get(blockLocation).getBaseLocation().toString());
                 }
             }
         }
     }
     public Map<Location, Shop> getStorage() {
-
-        Bukkit.getLogger().log(Level.INFO, storage.keySet().toString());
         return storage;
 
     }
