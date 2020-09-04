@@ -1,0 +1,5 @@
+Shops:
+  MaxAmount: 5
+# Currently not workin/working on a fix
+  AllowHopper: true
+  AllowChest: true

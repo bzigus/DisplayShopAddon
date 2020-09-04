@@ -1,5 +1,5 @@
 name: DisplayShopAddon
-version: 1.3.0
+version: 1.4.1
 description: Addon to the DisplayShop Plugin
 author: bugzigus
 depend: [DisplayShops]
@@ -10,7 +10,6 @@ commands:
     usage: /linkshop (1-5) (Shop-ID)
     permission: displayshopaddon.link
     permission-message: You do not have permission for that!
-
   readconfig:
     description: Used to read config - Dev command
     usage: linkshop

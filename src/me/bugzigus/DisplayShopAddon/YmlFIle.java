@@ -1,8 +1,8 @@
 package me.bugzigus.DisplayShopAddon;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +18,15 @@ import java.util.List;
 import java.util.UUID;
 
 public class YmlFIle {
+
+    private final DisplayShopAddon pluginData;
+
+    public YmlFIle(DisplayShopAddon plugin) {
+
+        this.pluginData = plugin;
+
+    }
+
 
     public static boolean isUUID(String string) {
         try {
@@ -41,8 +50,8 @@ public class YmlFIle {
     public static void fileClear(Player player, int number) {
 
         String playerUUID = player.getUniqueId().toString();
-        Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("DisplayShopAddon");
 
+        Plugin plugin = DisplayShopAddon.pluginInstance();
         File f = new File(plugin.getDataFolder() + File.separator + "PlayerDatabase" + File.separator + playerUUID + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
 
@@ -66,7 +75,7 @@ public class YmlFIle {
         }
     }
 
-    public static boolean fileWrite(Player player, Block block, Shop shop, int number) {
+    public boolean fileWrite(Player player, Block block, Shop shop, int number) {
 
         String playerUUID = player.getUniqueId().toString();
         String playerName = player.getName();
@@ -106,20 +115,9 @@ public class YmlFIle {
                 playerData.set("Data.UUID", playerUUID);
 
                 //Linked Sections
-                playerData.createSection("Shop1");
-                playerData.set("Shop"+ number + ".Enabled", true);
-                playerData.set("Shop"+ number + ".UUID", shopUUID);
-                playerData.set("Shop"+ number + ".ShopX", shopX);
-                playerData.set("Shop"+ number + ".ShopY", shopY);
-                playerData.set("Shop"+ number + ".ShopZ", shopZ);
-                playerData.set("Shop"+ number + ".ShopWorld", shopWorld);
-                playerData.set("Shop"+ number + ".BlockX", blockX);
-                playerData.set("Shop"+ number + ".BlockY", blockY);
-                playerData.set("Shop"+ number + ".BlockZ", blockZ);
-                playerData.set("Shop"+ number + ".BlockWorld", blockWorld);
+                getInfo(number, blockX, blockY, blockZ, blockWorld, shopUUID, shopX, shopY, shopZ, shopWorld, f, playerData);
 
-
-                playerData.save(f);
+                pluginData.getReadLocation().getStorage().put(blockLocation, shop);
 
             } catch (IOException exception) {
 
@@ -130,106 +128,11 @@ public class YmlFIle {
 
             try {
 
+                //Linked Sections
+                getInfo(number, blockX, blockY, blockZ, blockWorld, shopUUID, shopX, shopY, shopZ, shopWorld, f, playerData);
 
-                if (number == 1) {
+                pluginData.getReadLocation().storage.put(blockLocation, shop);
 
-                    if (!playerData.isConfigurationSection("Shop1")) {
-                        playerData.createSection("Shop1");
-                    } else {
-
-                    }
-                    playerData.set("Shop1.Enabled", true);
-                    playerData.set("Shop1.UUID", shopUUID);
-                    playerData.set("Shop1.ShopX", shopX);
-                    playerData.set("Shop1.ShopY", shopY);
-                    playerData.set("Shop1.ShopZ", shopZ);
-                    playerData.set("Shop1.ShopWorld", shopWorld);
-                    playerData.set("Shop1.BlockX", blockX);
-                    playerData.set("Shop1.BlockY", blockY);
-                    playerData.set("Shop1.BlockZ", blockZ);
-                    playerData.set("Shop1.BlockWorld", blockWorld);
-
-                    playerData.save(f);
-
-                } else if (number == 2) {
-
-                    if (!playerData.isConfigurationSection("Shop2")) {
-                        playerData.createSection("Shop2");
-                    } else {
-                    }
-                    playerData.set("Shop2.Enabled", true);
-
-                    playerData.set("Shop2.UUID", shopUUID);
-                    playerData.set("Shop2.ShopX", shopX);
-                    playerData.set("Shop2.ShopY", shopY);
-                    playerData.set("Shop2.ShopZ", shopZ);
-                    playerData.set("Shop2.ShopWorld", shopWorld);
-                    playerData.set("Shop2.BlockX", blockX);
-                    playerData.set("Shop2.BlockY", blockY);
-                    playerData.set("Shop2.BlockZ", blockZ);
-                    playerData.set("Shop2.BlockWorld", blockWorld);
-                    playerData.save(f);
-
-
-                } else if (number == 3) {
-
-                    if (!playerData.isConfigurationSection("Shop3")) {
-                        playerData.createSection("Shop3");
-                    }
-                    playerData.set("Shop3.Enabled", true);
-
-                    playerData.set("Shop3.UUID", shopUUID);
-                    playerData.set("Shop3.ShopX", shopX);
-                    playerData.set("Shop3.ShopY", shopY);
-                    playerData.set("Shop3.ShopZ", shopZ);
-                    playerData.set("Shop3.ShopWorld", shopWorld);
-                    playerData.set("Shop3.BlockX", blockX);
-                    playerData.set("Shop3.BlockY", blockY);
-                    playerData.set("Shop3.BlockZ", blockZ);
-                    playerData.set("Shop3.BlockWorld", blockWorld);
-                    playerData.save(f);
-
-                } else if (number == 4) {
-
-                    if (!playerData.isConfigurationSection("Shop4")) {
-                        playerData.createSection("Shop4");
-                    } else {
-
-                    }
-                    playerData.set("Shop4.Enabled", true);
-
-                    playerData.set("Shop4.UUID", shopUUID);
-                    playerData.set("Shop4.ShopX", shopX);
-                    playerData.set("Shop4.ShopY", shopY);
-                    playerData.set("Shop4.ShopZ", shopZ);
-                    playerData.set("Shop4.ShopWorld", shopWorld);
-                    playerData.set("Shop4.BlockX", blockX);
-                    playerData.set("Shop4.BlockY", blockY);
-                    playerData.set("Shop4.BlockZ", blockZ);
-                    playerData.set("Shop4.BlockWorld", blockWorld);
-                    playerData.save(f);
-
-                } else if (number == 5) {
-
-                    if (!playerData.isConfigurationSection("Shop5")) {
-                        playerData.createSection("Shop5");
-                    } else {
-
-                    }
-                    playerData.set("Shop5.Enabled", true);
-
-                    playerData.set("Shop5.UUID", shopUUID);
-                    playerData.set("Shop5.ShopX", shopX);
-                    playerData.set("Shop5.ShopY", shopY);
-                    playerData.set("Shop5.ShopZ", shopZ);
-                    playerData.set("Shop5.ShopWorld", shopWorld);
-                    playerData.set("Shop5.BlockX", blockX);
-                    playerData.set("Shop5.BlockY", blockY);
-                    playerData.set("Shop5.BlockZ", blockZ);
-                    playerData.set("Shop5.BlockWorld", blockWorld);
-                    playerData.save(f);
-
-                }
             }
             catch (IOException e){
 
@@ -240,6 +143,23 @@ public class YmlFIle {
         }
 
         return true;
+    }
+
+    private static void getInfo(int number, int blockX, int blockY, int blockZ, String blockWorld, String shopUUID, double shopX, double shopY, double shopZ, String shopWorld, File f, FileConfiguration playerData) throws IOException {
+        playerData.createSection("Shop" + number );
+        playerData.set("Shop"+ number + ".Enabled", true);
+        playerData.set("Shop"+ number + ".UUID", shopUUID);
+        playerData.set("Shop"+ number + ".ShopX", shopX);
+        playerData.set("Shop"+ number + ".ShopY", shopY);
+        playerData.set("Shop"+ number + ".ShopZ", shopZ);
+        playerData.set("Shop"+ number + ".ShopWorld", shopWorld);
+        playerData.set("Shop"+ number + ".BlockX", blockX);
+        playerData.set("Shop"+ number + ".BlockY", blockY);
+        playerData.set("Shop"+ number + ".BlockZ", blockZ);
+        playerData.set("Shop"+ number + ".BlockWorld", blockWorld);
+
+
+        playerData.save(f);
     }
 
     public static boolean isNumeric(String strNum) {
@@ -253,6 +173,30 @@ public class YmlFIle {
         }
         return true;
     }
+
+    //WIP
+//    public boolean isBlock (Block block) {
+//
+//        if (pluginData.getConfig().getBoolean("Shop.AllowHopper") && !pluginData.getConfig().getBoolean("Shop.AllowChest")) {
+//            if (block.getType() == Material.HOPPER) {
+//                return true;
+//            }
+//        } else if (pluginData.getConfig().getBoolean("Shop.AllowHopper") && pluginData.getConfig().getBoolean("Shop.AllowChest")) {
+//
+//            if (block.getType() == Material.HOPPER || block.getType() == Material.CHEST) {
+//                return true;
+//            }
+//
+//        } else if (!pluginData.getConfig().getBoolean("Shop.AllowHopper") && pluginData.getConfig().getBoolean("Shop.AllowChest")) {
+//            if (block.getType() == Material.CHEST) {
+//                return true;
+//            }
+//        } else {
+//
+//            return false;
+//        }
+//        return true;
+//    }
 
 
 }

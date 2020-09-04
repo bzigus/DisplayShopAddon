@@ -1,6 +1,6 @@
 LinkShop:
   incorrectID: "&4That is not a proper ID"
-  notChest: "&4The block you are looking at is not a chest"
+  notChest: "&4The block you are looking at is not a chest or hopper"
   incorrectUsage: "&4Incorrect Usage: /linkshop (1-5) (ShopID)"
   success: "&aSuccessfully linked"
 UnlinkShop:

@@ -30,6 +30,10 @@ public class DisplayShopAddon extends JavaPlugin {
 
         DisplayShopAddon.pluginInstance = this;
 
+        //Bstats
+        int pluginId = 8750;
+        Metrics metrics = new Metrics(this, pluginId);
+
         //Config Setup
         FileConfiguration config = this.getConfig();
         this.saveDefaultConfig();
@@ -42,9 +46,8 @@ public class DisplayShopAddon extends JavaPlugin {
 
         rl.saveDefault();
 
-        readLocations = new ReadLocations();
+        locationReader();
 
-        readLocations.readFiles();
         //Events
         getServer().getPluginManager().registerEvents(new ChestListener(this), this);
 
@@ -59,6 +62,12 @@ public class DisplayShopAddon extends JavaPlugin {
     public void onDisable() {
     }
 
+    public void locationReader () {
+
+        readLocations = new ReadLocations();
+        readLocations.readFiles();
+
+    }
 
     public ReadLocations getReadLocation() {
         return readLocations;
