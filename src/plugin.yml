@@ -1,5 +1,5 @@
 name: DisplayShopAddon
-version: 1.4.1
+version: 1.4.2
 description: Addon to the DisplayShop Plugin
 author: bugzigus
 depend: [DisplayShops]
@@ -21,6 +21,11 @@ commands:
     usage: unlinkshop (1-5)
     permission: displayshopaddon.unlink
     permission-message: You do not have permission for that!
+  shophelp:
+    description: Used to get the list of commands
+    usage: /shophelp
+    permission: displayshopaddon.help
+    permission-message: You do not have permission for that!
 
 permissions:
   displayshopaddon.*:
@@ -29,8 +34,12 @@ permissions:
           displayshopaddon.link: true
           displayshopaddon.read: true
           displayshopaddon.unlink: true
+          displayshopaddon.help: true
   displayshopaddon.link:
     description: Allows you to link shops
+    default: true
+  displayshopaddon.help:
+    description: Help command permission
     default: true
   displayshopaddon.unlink:
     description: Allows you to unlink a shop

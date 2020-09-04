@@ -1,5 +1,9 @@
+# AllowHopper/AllowChest is currently not working.
+# DisplayShopAddon made by bugzigus
+# An expansion to DisplayShops by XZot1K
 Shops:
   MaxAmount: 5
-# Currently not workin/working on a fix
   AllowHopper: true
   AllowChest: true
+Help:
+  Enabled: true
