@@ -11,8 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
-//TODO Make Hoppers Work with Display Shop
-
 public class DisplayShopAddon extends JavaPlugin {
 
     public FileConfiguration myFileConfig = null;
@@ -43,7 +41,7 @@ public class DisplayShopAddon extends JavaPlugin {
         config.options().copyDefaults(true);
         saveConfig();
 
-        ReadLang rl = new ReadLang();
+               ReadLang rl = new ReadLang();
 
         rl.saveDefault();
 
@@ -56,7 +54,6 @@ public class DisplayShopAddon extends JavaPlugin {
         this.getCommand("linkshop").setExecutor(new LinkCommand());
         this.getCommand("unlinkshop").setExecutor(new RemoveCommand());
         this.getCommand("readconfig").setExecutor(new ReadCommand(this));
-
         this.getCommand("shophelp").setExecutor(new HelpCommand());
 
     }
