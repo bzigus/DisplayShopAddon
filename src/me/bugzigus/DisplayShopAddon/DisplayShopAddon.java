@@ -1,11 +1,7 @@
 package me.bugzigus.DisplayShopAddon;
 
-import me.bugzigus.DisplayShopAddon.Commands.HelpCommand;
-import me.bugzigus.DisplayShopAddon.Commands.LinkCommand;
-import me.bugzigus.DisplayShopAddon.Commands.ReadCommand;
-import me.bugzigus.DisplayShopAddon.Commands.RemoveCommand;
+import me.bugzigus.DisplayShopAddon.Commands.BaseCommand;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.craftbukkit.Main;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -41,7 +37,7 @@ public class DisplayShopAddon extends JavaPlugin {
         config.options().copyDefaults(true);
         saveConfig();
 
-               ReadLang rl = new ReadLang();
+        ReadLang rl = new ReadLang();
 
         rl.saveDefault();
 
@@ -51,11 +47,7 @@ public class DisplayShopAddon extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChestListener(this), this);
 
         //Commands
-        this.getCommand("linkshop").setExecutor(new LinkCommand());
-        this.getCommand("unlinkshop").setExecutor(new RemoveCommand());
-        this.getCommand("readconfig").setExecutor(new ReadCommand(this));
-        this.getCommand("shophelp").setExecutor(new HelpCommand());
-
+        this.getCommand("dsa").setExecutor(new BaseCommand());
     }
 
     @Override

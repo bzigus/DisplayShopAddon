@@ -17,7 +17,7 @@ import xzot1k.plugins.ds.api.objects.Shop;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class LinkCommand implements CommandExecutor {
+public class LinkCommand {
 
     //Hashmap for finding
     HashMap<UUID, Shop> shopMaps = new HashMap<UUID, Shop>();
@@ -31,15 +31,14 @@ public class LinkCommand implements CommandExecutor {
     Block block = null;
     int x, y, z;
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+    public boolean link(CommandSender sender, String[] strings) {
 
         Plugin plugin = DisplayShopAddon.pluginInstance();
 
         YmlFIle ymlFIle = new YmlFIle((DisplayShopAddon) plugin);
 
         //Correct Length
-        if (strings.length == 2) {
+        if (strings.length == 3) {
 
             //Make sure the sender is a player
             if (sender instanceof Player) {
@@ -47,13 +46,13 @@ public class LinkCommand implements CommandExecutor {
                 Player player = (Player) sender;
 
                 //Check if the UUID given really is a UUID
-                if (YmlFIle.isUUID(strings[1])) {
-                    UUID key = UUID.fromString(strings[1]);
+                if (YmlFIle.isUUID(strings[2])) {
+                    UUID key = UUID.fromString(strings[2]);
 
                     //Check if number really is a number
-                    if (YmlFIle.isNumeric(strings[0])) {
+                    if (YmlFIle.isNumeric(strings[1])) {
 
-                        int number = Integer.parseInt(strings[0]);
+                        int number = Integer.parseInt(strings[1]);
 
                         if (plugin.getConfig().getInt("Shops.MaxAmount") >= number) {
 
@@ -74,13 +73,13 @@ public class LinkCommand implements CommandExecutor {
                                     //Write it to the .yml file
                                     ymlFIle.fileWrite(player, block, selectedShop, number);
 
-                                    player.sendMessage(rl.readFiles("LinkShop.success"));
+                                    player.sendMessage(rl.readFiles("Commands.LinkShop.success"));
 
                                     //All of messages you could receive
 
                                 } else {
 
-                                    player.sendMessage(rl.readFiles("LinkShop.incorrectID"));
+                                    player.sendMessage(rl.readFiles("Commands.LinkShop.incorrectID"));
 
                                 }
                             } else if (materialHopper == block.getType()) {
@@ -92,13 +91,13 @@ public class LinkCommand implements CommandExecutor {
                                     //Write it to the .yml file
                                     ymlFIle.fileWrite(player, block, selectedShop, number);
 
-                                    player.sendMessage(rl.readFiles("LinkShop.success"));
+                                    player.sendMessage(rl.readFiles("Commands.LinkShop.success"));
 
                                     //All of messages you could receive
 
                                 } else {
 
-                                    player.sendMessage(rl.readFiles("LinkShop.incorrectID"));
+                                    player.sendMessage(rl.readFiles("Commands.LinkShop.incorrectID"));
 
                                 }
 
@@ -106,30 +105,30 @@ public class LinkCommand implements CommandExecutor {
 
                             } else {
 
-                                player.sendMessage(rl.readFiles("LinkShop.notChest"));
+                                player.sendMessage(rl.readFiles("Commands.LinkShop.notChest"));
 
                             }
                         } else {
 
-                            player.sendMessage(rl.readFiles("LinkShop.incorrectUsage"));
+                            player.sendMessage(rl.readFiles("Commands.LinkShop.incorrectUsage"));
 
                         }
 
                     } else {
 
-                        player.sendMessage(rl.readFiles("LinkShop.incorrectUsage"));
+                        player.sendMessage(rl.readFiles("Commands.LinkShop.incorrectUsage"));
 
                     }
 
                 } else {
 
-                    player.sendMessage(rl.readFiles("LinkShop.incorrectUsage"));
+                    player.sendMessage(rl.readFiles("Commands.LinkShop.incorrectUsage"));
                 }
 
             }
         } else {
 
-            sender.sendMessage(rl.readFiles("LinkShop.incorrectUsage"));
+            sender.sendMessage(rl.readFiles("Commands.LinkShop.incorrectUsage"));
 
         }
         return true;
